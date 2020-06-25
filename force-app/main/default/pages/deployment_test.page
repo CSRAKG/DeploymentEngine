@@ -1,0 +1,140 @@
+<apex:page controller="metadatadeploy" showHeader="false" sidebar="false">
+    
+    <apex:includeScript value="/soap/ajax/25.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/25.0/apex.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.jszip)}"/>
+    
+    <style>
+        pre {
+        font-size: 12px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.0.2/jszip-utils.min.js" />
+                <script>
+                var asyncId;
+    var isIncludeZip = true;
+    
+    var retrieve = function() {
+        metadatadeploy.retrieve_x(function(result, event) { 
+            if(event.type === 'exception') { 
+                console.log("exception"); 
+                console.log(event); 
+            } else if(event.status) { 
+                asyncId = result;
+                if(asyncId) getZip();
+            } else { 
+                console.log(event.message); 
+            } 
+        });   
+    }
+    var downloadzip = function() {
+        var rawdata = document.getElementById("zipvalue").value;
+        var covertedfile = btoa(rawdata);
+        console.log('covertedfile'+covertedfile);
+        console.log('rawdata'+rawdata);
+        var fileName = 'example.zip';
+        var zipfile = new JSZip();
+        zipfile.file("package.xml", covertedfile);
+        var content = zipfile.generateAsync({type:"blob"})
+        .then(function(content){
+            saveAs(content, fileName);
+        });
+    }
+    
+    
+    var getZip = function(a) {
+        console.log('getZip method called',getZip);
+        metadatadeploy.checkRetrieveStatus(asyncId, isIncludeZip, function(result, event) { 
+            if(event.type === 'exception') { 
+                console.log("exception"); 
+                console.log(event); 
+            } else if(event.status) { 
+                if(!result) { 
+                    //   getZip();
+                } else {
+                    console.log('-----',result);
+                    document.getElementById("zipvalue").value = result;
+                    var zipfile = new JSZip();
+                    var res = '';
+                    zip.loadAsync(result, {base64: true}).then(function (zip) {
+                        var files = zip.files;
+                        console.log('files',files);
+                        $.each(files, function(i, v) {
+                            var file = v;
+                            console.log('----//',file.name);
+                            if(i % 2 == 0) {
+                                zipfile.file(file.name+".xml", file);
+                            }else{
+                                zipfile.file(file.name+".txt", file);                                    
+                            }
+                            
+                            zipfile.file("package.xml", content);
+                            file.async("text")
+                            .then(function (content) {
+                                $('<pre/>', {
+                                    text: content
+                                }).appendTo('body');
+                                $('<br/>', {
+                                }).appendTo('body');
+                            });
+                        })
+                    });
+                    
+                    //vkbeautify.xml($(document));
+                }
+            } else { 
+                console.log(event.message); 
+            } 
+        });
+    }
+    let classFile = function(string ){
+        return file.name
+    }
+    
+    </script>
+    
+    
+    
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+            <title>Oauth Demo</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <!-- Import the Design System style sheet -->
+            <apex:slds />
+        </head>
+        <body>
+            <!-- REQUIRED SLDS WRAPPER -->
+            <div style="margin:10%;padding:3%;border:1px solid grey;color:cornflowerblue;" class="slds-scope">
+                <!-- / MASTHEAD -->
+                <!-- PRIMARY CONTENT WRAPPER -->
+                <div class="myapp">
+                    <!-- SECTION - BADGE COMPONENTS -->
+                    <section aria-labelledby="badges">
+                        <h2 id="badges" class="slds-text-heading--large slds-m-vertical--large">Deployment</h2>
+                        <div>
+                            <div>
+                                <div class="slds-card">
+                                    <div class="slds-p-around_medium">
+                                        <center>
+                                            <input type="hidden" name="zipvalue" id="zipvalue" value="" />
+                                            <button class="slds-button slds-button_neutral" onclick="retrieve();"> Retrieve Metadata</button>
+                                            <button class="slds-button slds-button_neutral" onclick="downloadzip();"> Download Zip</button>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- / SECTION - BADGE COMPONENTS -->
+                </div>
+                <!-- / PRIMARY CONTENT WRAPPER -->
+            </div>
+            <!-- / REQUIRED SLDS WRAPPER -->
+        </body>
+    </html>
+</apex:page>

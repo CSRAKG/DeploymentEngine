@@ -1,0 +1,153 @@
+<aura:component controller="RM_DeploymentDetails" implements="force:appHostable" >
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>   
+    
+    <aura:attribute name="deployDetailListsuccess" type="RM_DeploymentDetail__c[]" />
+    <aura:attribute name="deployDetailListfailure" type="RM_DeploymentDetail__c[]" />
+    
+    <aura:attribute name="paginationListSuccess" type="RM_DeploymentDetail__c[]"/>
+    <aura:attribute name="pageSizeSuccess" type="Integer" default="5"/>
+    <aura:attribute name="totalSizeSuccess" type="Integer"/>
+    <aura:attribute name="startSuccess" type="Integer" />
+    <aura:attribute name="endSuccess" type="Integer"/>
+    
+    <aura:attribute name="paginationListFailure" type="RM_DeploymentDetail__c[]"/>
+    <aura:attribute name="pageSizeFailure" type="Integer" default="5"/>
+    <aura:attribute name="totalSizeFailure" type="Integer"/>
+    <aura:attribute name="startFailure" type="Integer" />
+    <aura:attribute name="endFailure" type="Integer"/>
+    
+    
+    
+    <aura:attribute name="DeployPopup" type="boolean" default="false"/>
+    <aura:attribute name="deployDetail" type="RM_DeploymentDetail__c" />
+    <aura:attribute name="selectedRecord" type="string" />
+    <div  style="text-align: center">
+        <h1 style="font-size:20px;">Deployment Success</h1>      
+    </div>
+    <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout">
+        <thead>
+            <tr class="slds-text-heading_label">
+                <th scope="col"><div class="slds-truncate" title="Id">Deployment_Id</div></th>
+                <th scope="col"><div class="slds-truncate" title="Date">Created Date</div></th>
+                <th scope="col"><div class="slds-truncate" title="Status">Status</div></th>
+                <th scope="col"><div class="slds-truncate" title="TestCompleted"> TestCompleted</div></th>
+                <th scope="col"><div class="slds-truncate" title="TotalComponent">TotalComponent</div></th>
+                <th scope="col"><div class="slds-truncate" title="TotalTest">TotalTest</div></th>
+                <th scope="col"><div class="slds-truncate" title="DeployedComponent">DeployedComponent</div></th>
+                <th scope="col"><div class="slds-truncate" title="Action">Action</div></th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.paginationListSuccess}" var="deploy">
+                <tr>
+                    <td><div class="slds-truncate" title="{!deploy.DeploymentId__c	}" >{!deploy.DeploymentId__c}</div></td>
+                    <td><div class="slds-truncate" title="{!deploy.CreatedDate__c}" >{!deploy.CreatedDate__c}</div></td>
+                    <td><div class="slds-truncate" title="{!deploy.Status__c}" >{!deploy.Status__c}</div></td>
+                    <td><div class="slds-truncate"  title="{!deploy.TestCompleted__c}">{!deploy.TestCompleted__c}</div></td>
+                    <td><div class="slds-truncate"  title="{!deploy.TotalComponent__c}">{!deploy.TotalComponent__c}</div></td>
+                    <td><div class="slds-truncate"  title="{!deploy.TotalTest__c}">{!deploy.TotalTest__c}</div></td>
+                    <td><div class="slds-truncate"  title="{!deploy.ComponentDeployed__c}">{!deploy.ComponentDeployed__c}</div></td>
+                    <td><button class="slds-button slds-button_neutral" onclick="{!c.viewDetails}" data-id="{!deploy.Id}">View Detail</button>                        
+                    </td>
+                </tr>
+            </aura:iteration>
+            
+        </tbody>
+    </table>
+    <div  style="text-align: center">
+        <lightning:button  label="First" disabled="{!v.startSuccess == 0}"  onclick="{!c.firstSuccess}" />
+        
+        <lightning:button  label="Previous" disabled="{!v.startSuccess == 0}"  onclick="{!c.previousSuccess}" />
+        
+        <lightning:button  label="Next" disabled="{!v.endSuccess >= v.totalSizeSuccess}" onclick="{!c.nextSuccess}" />
+        
+        <lightning:button  label="Last" disabled="{!v.endSuccess >= v.totalSizeSuccess}" onclick="{!c.lastSuccess}"/>
+    </div>
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+    <div  style="text-align: center">
+        <h1 style="font-size:20px;">Deployment Failure</h1>      
+    </div>
+    <table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout">
+        <thead>
+            <tr class="slds-text-heading_label">
+                <th scope="col"><div class="slds-truncate" title="Id">Deployment_Id</div></th>
+                <th scope="col"><div class="slds-truncate" title="Date">Date</div></th>
+                <th scope="col"><div class="slds-truncate" title="Status">Status</div></th>
+                <th scope="col"><div class="slds-truncate" title="TestCompleted"> TestCompleted</div></th>
+                <th scope="col"><div class="slds-truncate" title="TotalComponent">TotalComponent</div></th>
+                <th scope="col"><div class="slds-truncate" title="TotalTest">TotalTest</div></th>
+                <th scope="col"><div class="slds-truncate" title="DeployedComponent">DeployedComponent</div></th>
+                <th scope="col"><div class="slds-truncate" title="Action">Action</div></th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.paginationListFailure}" var="deploy">
+                <tr>
+                    <td><div class="slds-truncate" title="{!deploy.DeploymentId__c	}" >{!deploy.DeploymentId__c}</div></td>
+                    <td><div class="slds-truncate" title="{!deploy.CreatedDate__c}" >{!deploy.CreatedDate__c}</div></td>
+                    <td><div class="slds-truncate" title="{!deploy.Status__c}" >{!deploy.Status__c}</div></td>
+                    <td><div class="slds-truncate"  title="{!deploy.TestCompleted__c}">{!deploy.TestCompleted__c}</div></td>
+                    <td><div class="slds-truncate"  title="{!deploy.TotalComponent__c}">{!deploy.TotalComponent__c}</div></td>
+                    <td><div class="slds-truncate"  title="{!deploy.TotalTest__c}">{!deploy.TotalTest__c}</div></td>
+                    <td><div class="slds-truncate"  title="{!deploy.ComponentDeployed__c}">{!deploy.ComponentDeployed__c}</div></td>
+                    <td><button class="slds-button slds-button_neutral" onclick="{!c.viewDetails}" data-id="{!deploy.Id}">View Details</button> </td>                       
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+    <div  style="text-align: center">
+        
+        <lightning:button  label="First" disabled="{!v.startFailure == 0}"  onclick="{!c.firstFailure}" />
+        
+        <lightning:button  label="Previous" disabled="{!v.startFailure == 0}"  onclick="{!c.previousFailure}" />
+        
+        <lightning:button  label="Next" disabled="{!v.endFailure >= v.totalSizeFailure}" onclick="{!c.nextFailure}" />
+        
+        <lightning:button  label="Last" disabled="{!v.endFailure>= v.totalSizeFailure}" onclick="{!c.lastFailure}"/>
+    </div>
+    
+    <aura:if isTrue="{!v.DeployPopup}">
+        <div class="demo-only" style="height: 600px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- Header of Modal -->
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Deployment Test Errors</h2>
+                    </header>
+                    <!-- Body of Modal -->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Test Error">Test Error</div></th>
+                                    <td data-label="Test Error">
+                                        <div class="slds-truncate" title="{!v.deployDetail.RunTestErrorMessage__c}">{!v.deployDetail.RunTestErrorMessage__c}</div>
+                                    </td>
+                                </tr>
+                                <tr class="slds-line-height_reset">
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Component Error">Component Error</div></th>
+                                    <td data-label="Component Error">
+                                        <div class="slds-truncate" title="{!v.deployDetail.ComponentFailureMessage__c}">{!v.deployDetail.ComponentFailureMessage__c}</div>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <!-- Footer of Modal -->
+                    <footer class="slds-modal__footer">
+                        <lightning:button  label="Close" title="Base action" onclick="{! c.closeModal }"/>
+                    </footer>
+                </div>
+            </section>
+            <!-- Backdrop to set background slightly opaque. -->
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>    
+</aura:component>

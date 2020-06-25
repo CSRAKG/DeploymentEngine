@@ -1,0 +1,13 @@
+<aura:component  controller="RM_DeployZip">
+    <aura:attribute name="fileName" type="String" default="No File Selected.."/>
+    <aura:attribute name="asynResultId" type="String"/>
+    <aura:attribute name="message" type="String"/>
+    
+    <lightning:input aura:id="fileId" onchange="{!c.handleFilesChange}" type="file" name="file" label="Upload Attachment" multiple="false"/>
+    <div class="slds-text-body_small slds-text-color_error">{!v.fileName} </div>
+    
+    <button class="slds-button slds-button_brand" onclick="{!c.doSave}">Upload Metadata</button>
+    <br/>
+    <br/>
+    <div class="slds-text-heading_large">Status : {!v.message}</div>
+</aura:component>

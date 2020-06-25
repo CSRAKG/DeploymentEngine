@@ -1,0 +1,66 @@
+<aura:component controller ="OauthDemo2" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name ="PreviewDeploymentSection" type="boolean" default="false"></aura:attribute>
+     <aura:attribute name ="openDeploymentSection" type="boolean" default="false"></aura:attribute>
+    <lightning:tabset selectedTabId="one">
+        <lightning:tab label="Org Authentication" id="one">
+          <article style="padding:1%" class="slds-card">
+              <c:OrgAuthorizationInfo></c:OrgAuthorizationInfo>
+            </article>
+            
+        </lightning:tab>
+            <lightning:tab label="Deployment" id="two">
+            <c:RM_MetaDataRetreive></c:RM_MetaDataRetreive>
+        </lightning:tab> 
+             <lightning:tab label="DeploymentDetail" id="three">
+                 <c:RM_DeploymentDetail></c:RM_DeploymentDetail>
+         </lightning:tab> 
+      <!--   <lightning:tab label="Deployment" id="two">
+            <aura:if isTrue="{!v.PreviewDeploymentSection}">
+                <div class="modal-header slds-modal__header slds-size_1-of-1">
+                    <h4 class="title slds-text-heading-medium">Retreive Metadata</h4>
+                </div>
+                <div class="slds-modal__content">
+                    <center>
+                        <div aura:id="contentWrappingDiv" class="contentoverflowCSSLightning">
+                            <iframe   src="/apex/deployment?core.apexpages.request.devconsole=1"  width="100%" frameBorder='0' style="height:40vh"  />
+                        </div>
+                    </center>
+                </div>
+                <div class="modal-footer slds-modal__footer slds-size_1-of-1">
+                    <lightning:button variant="Neutral" class="slds-button" label="Cancel" onclick="{!c.handleClose}"/>
+                    <lightning:button variant="Neutral" class="slds-button" label="Click here To start Deployment" onclick="{!c.openDeploymentSection}"/>
+
+                </div>
+                <aura:set attribute="else">
+                    <center>
+                        <ui:button label="Retrieve" press="{!c.openActionWindow}"/>
+                    </center>
+                </aura:set>
+            </aura:if>
+            <aura:if isTrue="{!v.openDeploymentSection}">
+                <div class="modal-header slds-modal__header slds-size_1-of-1">
+                    <h4 class="title slds-text-heading-medium">Deploy Metadata</h4>
+                </div>
+                <div class="slds-modal__content">
+                    <center>
+                        <div aura:id="contentWrappingDiv" class="contentoverflowCSSLightning">
+                            click here to deploy using zip folder
+                        </div>
+                    </center>
+                </div>
+                <div class="modal-footer slds-modal__footer slds-size_1-of-1">
+                    <lightning:button variant="Neutral" class="slds-button" label="Cancel" onclick="{!c.handleClose}"/>
+                    <lightning:button variant="Neutral" class="slds-button" label="Back" onclick="{!c.openActionWindow}"/>
+
+                </div>
+            </aura:if>
+        </lightning:tab> -->
+         <lightning:tab label="Retreive components Metadata" id="four">
+             <iframe   src="/apex/metadataretrieve"  width="100%" frameBorder='0' style="height:100vh"  />
+        </lightning:tab> 
+        <lightning:tab label="Deployment Test" id="five">
+            <iframe src ="/apex/metadatadeploy"  width="100%" frameBorder='0' style="height:100vh"  />
+        </lightning:tab>
+    </lightning:tabset>
+</aura:component>

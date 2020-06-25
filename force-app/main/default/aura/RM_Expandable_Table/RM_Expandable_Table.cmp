@@ -1,0 +1,32 @@
+<aura:component   controller="RM_MetadataRetrieveController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+                access="global" >
+      <aura:handler name="init" value="{!this}" action="{!c.doInit}" />   
+         <aura:attribute name="MetadataHeader_all" type="Map" />   
+
+        <aura:iteration items="{!v.MetadataHeader_all}" var="val">
+
+    <!--section 1 start-->  
+    <div class="slds-section slds-is-open" aura:id="fruitsSection">
+        <!--section header-->
+        <h3 class="slds-section__title">
+            <button aria-controls="fruitsList" class="slds-button slds-section__title-action">
+                <span onclick="{!c.toggleSection}" data-auraId="fruitsSection">
+                    <lightning:icon iconName="utility:switch"
+                                    size="x-small"
+                                    class="slds-section__title-action-icon slds-button__icon_left"
+                                    alternativeText="button icon" 
+                                    />
+                </span>
+                <span class="slds-truncate" title="Fruits"> {!val.key} </span>
+            </button>
+        </h3>
+        <!--section body-->
+        <div class="slds-section__content" id="fruitsList">
+               
+
+        </div>
+    </div>
+    <!--section 1 end-->
+            </aura:iteration>
+
+</aura:component>

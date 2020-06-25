@@ -1,0 +1,5 @@
+<aura:component >
+	<button class="slds-button slds-button_neutral">Retrieve</button>
+
+<button class="slds-button slds-button_neutral">Deploy</button>
+</aura:component>

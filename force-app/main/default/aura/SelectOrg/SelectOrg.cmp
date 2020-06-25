@@ -1,0 +1,12 @@
+<aura:component controller="SelectedOrg">
+      <aura:attribute name="TypePicklist" type="OrgAuthorizationInfo__c[]" />  <!-- Picklist Values of Type Field -->
+      <aura:attribute name="recordId" type="string" />  <!-- Picklist Values of Type Field -->
+     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />    
+    <lightning:select label="Type" value="{!v.TypePicklist}"   onchange="{!c.retrieveId}" aura:id="statusPicklist">
+        <aura:iteration items="{!v.TypePicklist}" var="val">
+            <option value="{!val.org_name__c}"   data-recordid="{!val.Id}"  > {!val.org_name__c}</option>
+        </aura:iteration>
+    </lightning:select>    
+        
+     
+</aura:component>

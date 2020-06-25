@@ -1,0 +1,5 @@
+<apex:page >
+    <p>
+         this is accss token page 
+    </p>
+</apex:page>

@@ -1,0 +1,8 @@
+<aura:component  controller="metadatadeploy" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+  <!--  <ltng:require scripts="{!$Resource.jszip}"></ltng:require> -->
+    
+    <input type="hidden" name="zipvalue" id="zipvalue" value="" />
+    <lightning:button class="slds-button slds-button_neutral" label="Retrieve Metadata" onclick="{!c.retrieve}"  /> 
+    <lightning:button class="slds-button slds-button_neutral" label="Download Zip" onclick="{!c.downloadzip}"  /> 
+
+</aura:component>

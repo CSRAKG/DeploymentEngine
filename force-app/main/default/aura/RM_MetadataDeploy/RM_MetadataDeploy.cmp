@@ -1,0 +1,20 @@
+<aura:component >
+    <aura:attribute name="testValue" type="String"/>
+    <aura:attribute name="testData" type="String"/>
+    <aura:attribute name="toggleEng" type="boolean" default="false"/>
+    
+    <div class="slds-form-element" style="padding:2%">
+        <lightning:select name="mySelect" class="slds-container_small" label="Test Type" aura:id="mySelect" required="true" onchange="{!c.toggle}">
+            <option value="No Value">choose one...</option>
+            <option value="1">RunSpecifiedTest</option>
+            <option value="2">RunLocalTest</option>
+            <option value="3">NoTestRun</option>
+            <option value="4">RunAllTest</option>
+        </lightning:select>
+    </div>
+    
+    <aura:if isTrue="{!v.toggleEng}">
+        Hello World
+    </aura:if>
+    
+</aura:component>

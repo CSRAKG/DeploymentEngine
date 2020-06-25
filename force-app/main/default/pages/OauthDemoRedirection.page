@@ -1,0 +1,48 @@
+<apex:page controller="OauthDemoRedirectionCtrl" showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" action="{!RedirectBack}">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+            <title>Oauth Demo</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <!-- Import the Design System style sheet -->
+            <apex:slds />
+        </head>
+        <body>
+            <!-- REQUIRED SLDS WRAPPER -->
+            <div style="margin:10%;padding:3%;border:1px solid grey;color:cornflowerblue;" class="slds-scope">
+                
+                
+                <!-- / MASTHEAD -->
+                <!-- PRIMARY CONTENT WRAPPER -->
+                <div class="myapp">
+                    <!-- SECTION - BADGE COMPONENTS -->
+                    <section aria-labelledby="badges">
+                        <h2 id="badges" class="slds-text-heading--large slds-m-vertical--large">Authentication is Succesfull </h2>
+                        <div>
+                            <div>
+                                
+                                <div class="slds-card">
+                                    <div class="slds-p-around_medium">Oauth Integration </div>
+                                </div>
+                                
+                                <div class="slds-card">
+                                    <div class="slds-p-around_medium">
+                                        
+                                        <p class="slds-text-heading--label slds-m-bottom--small">
+                                            Authentication Accesss Token is :<b><span style="color:red">  </span> </b>
+                                        </p>
+                                      <!--  <button class="slds-button slds-button_neutral" onclick="{!RedirectBack}"> Finish</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- / SECTION - BADGE COMPONENTS -->
+                </div>
+                <!-- / PRIMARY CONTENT WRAPPER -->
+            </div>
+            <!-- / REQUIRED SLDS WRAPPER -->
+        </body>
+    </html>
+</apex:page>

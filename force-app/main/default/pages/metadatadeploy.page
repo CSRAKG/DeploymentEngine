@@ -1,0 +1,43 @@
+<apex:page controller="deploywithzip" sidebar="false">
+    
+    <apex:form id="form">
+        <apex:pageMessages />
+        <apex:inputFile value="{!getzip}" fileName="{!getdata}" />
+        <apex:commandButton action="{!checkstatus}" value="status" />
+        <apex:commandButton action="{!datavalue}" value="deploy" />
+    </apex:form>
+    
+    <!--<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+            <title>Deployment Screen</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <apex:slds />
+        </head>
+        <body>
+            <div style="margin:2%;padding:3%;border:1px solid grey;color:cornflowerblue;" class="slds-scope">
+                <div class="myapp">
+                    <section aria-labelledby="badges">
+                        <h2 id="badges" class="slds-text-heading--large slds-m-vertical--large">Deployment</h2>
+                        <div>
+                            <div>
+                                <div class="slds-card">
+                                    <div class="slds-p-around_medium">
+                                        <center>
+                                            <apex:pageMessages />
+                                            <input type="file" name="myfile" id="myfile" value="{!getzip}" /> 
+                                           <button class="slds-button slds-button_neutral" action="{!checkstatus}">Status</button>
+                                            <button class="slds-button slds-button_neutral" action="{!datavalue}">Deploy</button>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </body>
+    </html>-->
+    
+</apex:page>
